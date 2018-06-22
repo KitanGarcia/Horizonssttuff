@@ -57,7 +57,10 @@ function EventEmitter() {
 // emitter.emit('someEvent') // -> prints 'called'
 EventEmitter.prototype.on = function(eventName, fn) {
   // YOUR CODE HERE
-  this.listeners[eventName] = [];//add object with eventName key and fn value to listeners array
+  if (!this.listeners[eventName])
+  {
+    this.listeners[eventName] = [];//add object with eventName key and fn value to listeners array
+  }
   this.listeners[eventName].push(fn);
   
 }
@@ -99,14 +102,15 @@ EventEmitter.prototype.emit = function(eventName, arg) {
 EventEmitter.prototype.removeListener = function(eventName, fn) {
   // YOUR CODE HERE
 //SHOULD IT BE THIS?
-  for (var i = 0; i < this.listener[eventName].length; i++)//should be length of listener array
+  this.listeners[eventName].shift();
+/*  for (var i = 0; i < this.listener[eventName].length; i++)//should be length of listener array
   {
     if (listener[eventName])
     {
       this.listener[eventName].splice(i, 1);//attempt to remove the element of the array (2nd parameter is element to remove)
       i--;
     }//is it i or should it be i + 1??
-  }
+  }*/
   //return emitter.listener.splice?
 }
 
