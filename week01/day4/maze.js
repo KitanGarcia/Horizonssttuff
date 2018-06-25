@@ -144,5 +144,26 @@ Maze.prototype.tryMove = function(row, column, direction) {
 //
 // No diagonal moves are allowed.
 Maze.prototype.isSolvable = function() {
-  // YOUR CODE HERE
+  // Breadth first search and Depth first search
+  //BFS chosen
+  var q = [this.getStartPosition()];
+  while(q.length)
+  {
+    var currentCoords = q.shift();
+    var row = currentCoords[0];
+    var col = currentCoords[1];
+    if (this.maze[row][col] === 'E')
+    {
+      return true;
+    }
+    Maze.validDirections.forEach(function(dir)
+    {
+      var newCoords = tryMove(row, col, dir);
+      if (newCoords)
+      {
+        q.push(newCoords);
+      }
+    });
+  }
+  return false;
 }

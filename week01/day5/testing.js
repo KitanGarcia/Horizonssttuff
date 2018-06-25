@@ -17,7 +17,7 @@
 // Expectations need to be placed inside test cases. If you write an
 // expectation in Jasmine not in any test spec it will generate an error.
 
-expect(true).toBe(true); // Error! Comment out this line to continue.
+//expect(true).toBe(true); // Error! Comment out this line to continue.
 
 // ----------Test Specs----------
 // Test specs (or test cases) are groups of Expectations.  They are created
@@ -59,7 +59,7 @@ describe("Tests for expectation types", function() {
   // We can negate (i.e. flip) Jasmine expectations using 'not.' Insert
   // 'not.' (including the period) before 'toBe(' below.
   it("true should not be false", function() {
-    expect(true).toBe(false); // Fix this test!
+    expect(true).not.toBe(false); // Fix this test!
   });
 
   // toBe() uses === to compare things. === doesn't work the way we want when
@@ -67,22 +67,22 @@ describe("Tests for expectation types", function() {
   // offers another expectation type: toEqual().
 
   it("array [1] should be equal to [1]", function() {
-    expect([1]).toBe([1]); // Fix this test case
+    expect([1]).toEqual([1]); // Fix this test case
   });
 
   // We can use 'not' to negate toEqual() checks too.
   it("array [1] should not be equal to [2]", function() {
-    expect([1]).toEqual([2]); // Fix this test case
+    expect([1]).not.toEqual([2]); // Fix this test case
   });
 
   // .toBeTruthy() checks if a value is truthy
   it("1 should be truthy", function() {
-    expect(1).toBe(); // Fix this test case
+    expect(1).toBeTruthy(); // Fix this test case
   });
 
   // .toBeFalsy() does the oppsite of .toBeTruthy()
   it("0 should be falsy", function() {
-    expect(0).toBe(); // Fix this test case
+    expect(0).toBeFalsy(); // Fix this test case
   });
 
   // Normally, if your code throws an error (generates an exception) then Jasmine will
@@ -99,11 +99,11 @@ describe("Tests for expectation types", function() {
   // expect(function() { throw "Error" }).toThrow(); // Good
   function error() {
     throw "Error!";
-  }
+  };
 
   // Wrap error() in a function
   it("error() should throw an exception", function() {
-    expect(error()).toThrow(); // Fix this test case
+    expect(function () {throw "Error"}).toThrow(); // Fix this test case
   });
 
   // Jasmine offers other expectation types too. Read up on them here:
