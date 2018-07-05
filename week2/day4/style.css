@@ -1,0 +1,86 @@
+/**
+{
+  border: 1px solid red;
+}*/
+
+.registration, .loginPage .title
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#register, #login, #lLogin, #lRegister
+{
+  width: 100%;
+}
+
+#register, #lLogin
+{
+  background-color: red;
+}
+
+#login, #lRegister
+{
+  background-color: lightblue;
+}
+
+.form-group, .form-control
+{
+  width: 100% !important;
+}
+
+.btn
+{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.input
+{
+  width: 50% !important;
+  margin: auto;
+}
+
+#typePost
+{
+  width: 85% !important;
+  display: inline;
+  margin-right: 3%;
+}
+
+.posts
+{
+  text-align: center;
+}
+
+.post, .replies
+{
+  border: 1px solid black;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.postheadings
+{
+  font-weight: bold;
+}
+
+.replies
+{
+  margin-bottom: 30px;
+}
+
+.replybtn, #postbtn
+{
+  background-color: lightblue;
+}
+
+.logout
+{
+  background-color: lightblue;
+  float: right;
+}
