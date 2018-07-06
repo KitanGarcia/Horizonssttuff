@@ -72,7 +72,22 @@ $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/posts/:page?token=" + lo
       var postTime = data.response[i].createdAt;
       var numLikes = data.response[i].likes.length;
       var numReplies = data.response[i].comments.length;
-
+    var allcomments = "";
+    for (var k = 0; k < data.response[i].comments.length; k++)
+    {
+      var commentTime = data.response[i].comments[k].createdAt;
+      var commentContent = data.response[i].comments[k].content;
+      var commenterName = data.response[i].comments[k].poster.name;
+      allcomments +=  `<div>
+        <p>${commenterName}: ${commentTime}</p>
+      </div>
+      <div>
+        <h5>${commentContent}</h5>
+      </div>
+    `;
+    //^to close reply div???
+    //and are comments and replies the same?
+  }
       $(".posts").append(
     `<div class = "post">
       <div class = "row comment">
@@ -88,19 +103,24 @@ $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/posts/:page?token=" + lo
     <div class = "replies">
       <div class = "row">
         <h4 class = "postheadings">${numReplies}, ${numLikes}</h4>
+        ${allcomments}
       </div>
         <button class="replybtn btn btn-default glyphicon glyphicon-thumbs-up" id = "likebtn"></button>
         <button class="replybtn btn btn-default" id = "replybtn">Reply</button>
     `);//should still be in replies???
-    }
-  },
+
+
+
+  }
+
+    },
   error: function(err)
   {
     console.log(err);
   }
 });
 
-
+/*
 //DEALING WITH COMMENTS
 $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/posts/comments/:post_id"
  + localStorage.getItem("token"),
@@ -108,12 +128,11 @@ $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/posts/comments/:post_id"
   method: 'POST',
   success: function(data)
   {
-    for (var i = 0; i < data.response.length; i++)
+    for (var i = 0; i < data.response.comments.length; i++)
     {
       var commentTime = data.response[i].comments.createdAt;
       var commentContent = data.response[i].comment.content;
       var commenterName = data.response[i].poster.name;
-      var postID = data.response[i]._id;
       $(".replies > .row").append(//CHANGE TO RIGHT CLASS/ID
       `<div>
         <p>${commenterName}: ${commentTime}</p>
@@ -141,7 +160,7 @@ $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/posts/comments/:post_id"
     console.log(err);
   }
 });
-
+*/
 
 //Get data into API on register
 $('#postbtn').on('click', function(event){
