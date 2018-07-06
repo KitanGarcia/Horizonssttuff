@@ -3,11 +3,19 @@
   border: 1px solid red;
 }*/
 
+.loginPage
+{
+  width: 25% !important;
+  margin: auto !important;
+}
+
 .registration, .loginPage .title
 {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 25% !important;
+  margin: auto !important;
 }
 
 #register, #login, #lLogin, #lRegister

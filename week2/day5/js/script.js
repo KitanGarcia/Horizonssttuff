@@ -72,95 +72,54 @@ $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/posts/:page?token=" + lo
       var postTime = data.response[i].createdAt;
       var numLikes = data.response[i].likes.length;
       var numReplies = data.response[i].comments.length;
-    var allcomments = "";
-    for (var k = 0; k < data.response[i].comments.length; k++)
-    {
-      var commentTime = data.response[i].comments[k].createdAt;
-      var commentContent = data.response[i].comments[k].content;
-      var commenterName = data.response[i].comments[k].poster.name;
-      allcomments +=  `<div>
+      var allcomments = "";
+      for (var k = 0; k < data.response[i].comments.length; k++)
+      {
+        var commentTime = data.response[i].comments[k].createdAt;
+        var commentContent = data.response[i].comments[k].content;
+        var commenterName = data.response[i].comments[k].poster.name;
+        allcomments +=  `<div>
         <p>${commenterName}: ${commentTime}</p>
-      </div>
-      <div>
-        <h5>${commentContent}</h5>
-      </div>
-    `;
-    //^to close reply div???
-    //and are comments and replies the same?
-  }
+        </div>
+        <div>
+          <h5>${commentContent}</h5>
+        </div>
+      `;
+      }
       $(".posts").append(
-    `<div class = "post">
-      <div class = "row comment">
-        <h4 class = "postheadings">${posterName}</h4>
-      </div>
-      <div>
-        <p>${postTime}</p>
-      </div>
-      <div>
-        <h5>${postContent}</h5>
-      </div>
-    </div>
-    <div class = "replies">
-      <div class = "row">
-        <h4 class = "postheadings">${numReplies}, ${numLikes}</h4>
-        ${allcomments}
-      </div>
-        <button class="replybtn btn btn-default glyphicon glyphicon-thumbs-up" id = "likebtn"></button>
-        <button class="replybtn btn btn-default" id = "replybtn">Reply</button>
-    `);//should still be in replies???
-
-
-
-  }
-
-    },
-  error: function(err)
-  {
-    console.log(err);
-  }
-});
-
-/*
-//DEALING WITH COMMENTS
-$.ajax("https://horizons-facebook.herokuapp.com/api/1.0/posts/comments/:post_id"
- + localStorage.getItem("token"),
-{
-  method: 'POST',
-  success: function(data)
-  {
-    for (var i = 0; i < data.response.comments.length; i++)
-    {
-      var commentTime = data.response[i].comments.createdAt;
-      var commentContent = data.response[i].comment.content;
-      var commenterName = data.response[i].poster.name;
-      $(".replies > .row").append(//CHANGE TO RIGHT CLASS/ID
-      `<div>
-        <p>${commenterName}: ${commentTime}</p>
-      </div>
-      <div>
-        <h5>${commentContent}</h5>
-      </div>
-      <div class = "reply">
-        <div>
-          <h5>Replier: Time AM/PM date</h5>
-        </div>
-        <div>
-          <h5>Actual reply</h5>
-        </div>
-      </div>
-        <button class="replybtn btn btn-default glyphicon glyphicon-thumbs-up" id = "likebtn"></button>
-        <button class="replybtn btn btn-default" id = "replybtn">Reply</button>
-    </div>`);
-    //^to close reply div???
-    //and are comments and replies the same?
+      `<div class = "post">
+         <div class = "row comment">
+           <h4 class = "postheadings">${posterName}</h4>
+         </div>
+       <div>
+         <p>${postTime}</p>
+       </div>
+       <div>
+         <h5>${postContent}</h5>
+       </div>
+     </div>
+     <div class = "replies">
+       <div class = "row">
+         <h4 class = "postheadings">${numReplies}, ${numLikes}</h4>
+         ${allcomments}
+       </div>
+       <button class="likebtn replybtn btn btn-default glyphicon glyphicon-thumbs-up" id = "likebtn"></button>
+       <button class="replybtn btn btn-default" id = "replybtn">Reply</button>
+     `);//should still be in replies???
     }
+
+    $(".likebtn").on("click", function(event)
+    {
+      console.log("Yeah got here!");
+      $(this).toggleClass("glyphicon-thumbs-up glyphicon-thumbs-down");
+    });
   },
   error: function(err)
   {
     console.log(err);
   }
 });
-*/
+
 
 //Get data into API on register
 $('#postbtn').on('click', function(event){
@@ -185,7 +144,7 @@ $('#postbtn').on('click', function(event){
 
 $(".logout").on("click", function(event)
 {
-  $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/users/logout" /*+ localStorage.getItem("token")*/, 
+  $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/users/logout", 
   {
     method: 'GET',
     data:
@@ -204,3 +163,26 @@ $(".logout").on("click", function(event)
     }
   });
 });
+
+/*
+//implement likes when thumbs up is click
+$(".likebtn").on("click", function(event)
+{
+  $.ajax("https://horizons-facebook.herokuapp.com/api/1.0/posts/likes/:" + $(this), //FIX THIS!!!
+  {
+    method: 'GET',
+    data:
+    {
+      token: localStorage.getItem("token")
+    },
+    success: function(data)
+    {
+      $(this).toggleClass("glyphicon-thumbs-up glyphicon-thumbs-down");//or toggleClass(thumbsup).toggleClass(thumbsdown)
+      console.log("got here yeah", data);
+    },
+    error: function(err)
+    {
+      console.log(err);
+    }
+  });
+});*/
