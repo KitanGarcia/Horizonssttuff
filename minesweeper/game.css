@@ -1,0 +1,29 @@
+/*CSS*/
+body
+{
+  text-align: center;
+}
+.cell
+{
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  border: solid 1px black;
+  cursor: pointer;
+  text-align: center;
+}
+
+.red
+{
+  background-color: red;
+}
+
+.grey
+{
+  background-color: grey;
+}
+
+.ui
+{
+  margin-top: 10px;
+}
