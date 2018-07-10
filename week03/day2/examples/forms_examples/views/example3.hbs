@@ -1,5 +1,14 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method = "post" action = "/login">
+  <span>
+    <input type = "text" name = "email" value = "val" >password</input>
+    <input type = "password" name = "password" value = "val"> username</input>
+    <input type = "submit" value = "Login"></input>
+    {{#if exists}}
+      <h1> Hi {{name}}</h1>
+      {{else}}
+        <h1>No match</h1>
+    {{/if}}
+</span>
 </form>
 
 
