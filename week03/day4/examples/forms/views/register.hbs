@@ -12,10 +12,43 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:
+      {{#each errors}}
+        <li>{{msg}}</li>
+      {{/each}}</strong>
+    </div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <div>
+          <input type="text" placeholder="First Name" name="firstName">
+        </div>
+        <div>
+          <input type="text" placeholder="Middle Initial" name="middleInitial">
+        </div>
+        <div>
+          <input type="text" placeholder="Last Name" name="lastName">
+        </div>
+        <div>
+          <input type="date" placeholder="Date of Birth" name="dateOfBirth" >
+        </div>
+        <div>
+          <input type="password" placeholder="Password" name="password">
+        </div>
+        <div>
+          <input type="password" placeholder="Repeat Password" name="repeatPassword">
+        </div>
+        <div>
+          Gender: 
+          <div>
+          Male <input type="radio" placeholder="Gender" name="gender" value = "male"><label for = "male"></label></div>
+         <div>
+          Female <input type="radio" placeholder="Gender" name="gender" value = "female"><label for = "female"></label></div>
+<div>          Rather not say<input type="radio" placeholder="Gender" name="gender" value = "not specified"><label for = "rathernotsay"></label></div>
+        </div>
+        <div>
+          <input type="checkbox" placeholder="Sign-up for newsletter" name="signUp">Sign up for newsletter
+        </div>
+        <textarea row = "4" cols = "50" placeholder="Bio" name="bio"></textarea>
         <input type="submit">
       </form>
     </div>
