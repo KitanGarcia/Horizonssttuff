@@ -23,19 +23,64 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  // YOUR CODE HERE
+  Project.find(function(error, results)
+  {
+    if (error)
+    {
+      console.log(error);//or could res.send(error)
+    }
+    else
+    {
+      res.render("index",
+      {
+        project: results
+      });
+    }
+  });
+  
 });
 
 // Part 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  // YOUR CODE HERE
+  res.render("new",
+  {
+    title: "Create new project"//Is this what it wants
+  });
+/*
+    title: res.title,//should these all be objects?
+    goal: res.goal,
+    description: res.description,
+    start: res.start,
+    end: res.end*/
+ // });
 });
 
 // Part 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
-  // YOUR CODE HERE
+//NEED TO CHECK FOR VALID DATA AND RENDER IF THERE ARE ERRORS
+  var project = new Project(
+  {
+    title: req.body.title,
+    goal: req.body.amount,
+    category: req.body.category,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end
+  });
+  project.save(function(err)
+  {
+    if (err)
+    {
+      console.log(err);
+      res.send(err);
+    }
+    else
+    {
+      res.redirect("/");
+    }
+  });
 });
 
 // Part 3: View single project
