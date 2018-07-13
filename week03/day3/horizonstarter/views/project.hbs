@@ -1,9 +1,21 @@
 <h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
+<h4>title: {{title}}</h4>
+<h4>goal: {{goal}}</h4>
+<h4>description: {{description}}</h4>
+<h4>start: {{start}}</h4>
+<h4>end: {{end}}</h4>
 
-<!-- YOUR CODE HERE -->
+<h4>Total Amount of Contributions: {{contributionAmt}}</h4>
 
 <!-- Part 4: Contribute to a project -->
+<form method = "POST">
+  Contribution Name <input type = "text" name = "contName"></input>
+  Contribution Amount <input type = "text" name = "contAmount"></input>
+  <input type = "submit"></input>
+</form>
 
-<!-- YOUR CODE HERE -->
+<h4>Contributions</h4>
+  {{#each contribution}}
+  {{/each}}

@@ -13,7 +13,7 @@ var Project = mongoose.model('Project', {
     required: true
   },
   description: {
-    type: String,
+    type: String
   },
   start: {
     type: Date,
@@ -22,7 +22,20 @@ var Project = mongoose.model('Project', {
   end: {
     type: Date,
     required: true
-  }
+  },
+  contributions:
+  [
+    { 
+      name:
+      {
+        type: String
+      },
+      amount:
+      {
+        type: Number
+      }
+    }
+  ]
 });
 
 module.exports = {

@@ -2,13 +2,13 @@
 
 <!-- Part 2: Create project -->
 <form method = "POST" action = "/new">
-    <input type = "text" name = "title" value = {{project.title}}></input>
-    <input type = "text" name = "goal" value = {{project.goal}}></input>
-    <textarea name = "description" rows = "4" cols = "50" value = {{project.description}}></textarea>
-    <input type = "text" name = "start" value = {{project.start}}></input>
-    <input type = "text" name = "end" value = {{project.end}}></input>
+    <input type = "text" name = "title" value = {{title}}></input>
+    <input type = "text" name = "goal" value = {{goal}}></input>
+    <textarea name = "description" rows = "4" cols = "50" >{{description}}</textarea>
+    <input type = "date" name = "start" value = {{start}}></input>
+    <input type = "date" name = "end" value = {{end}}></input>
+    <input type = "submit" name = "submit"></input>
 </form>
-
 
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
