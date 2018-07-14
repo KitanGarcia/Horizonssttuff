@@ -139,10 +139,10 @@ app.get("/api/users/logout", function(req, res)
   });
 });
 
-
+/*
 app.get("/api/users/posts", function(req, res)
 {
-  User.findOne({token: req.body.token}, function(error, user)
+  User.findOne({token: req.query.token}, function(error, user)
   {
     if (error)
     {
@@ -153,8 +153,50 @@ app.get("/api/users/posts", function(req, res)
       console.log(user);
     }
   });
-});
+});*/
 
+/*
+app.post("/api/users/posts", function(req, res)
+{
+  User.findOne({token: req.query.token}, function(error, user)
+  {
+    var post = new Post(
+    {
+      poster: req.body.poster,
+      content: req.body.content,
+      likes: req.body.likes,
+      comments: req.body.comments,
+      createdAt: req.body.createdAt
+    });
+    post.save(function(error, results)
+    {
+      if (error)
+      {
+        console.log(error);
+      }
+      else
+      {
+        res.json(
+        {
+          success: true, 
+          response: 
+          {
+            poster: 
+            {
+              name: user.name,
+              id: user._id
+            },
+            content: req.body.content,
+            createdAt: req.body.createdAt,
+            _id: user._id,//WHAT SHOULD THIS BE?????
+            comments: [],
+            likes: []
+          }
+        });
+      }
+    })
+  });
+});*/
 
 
 
