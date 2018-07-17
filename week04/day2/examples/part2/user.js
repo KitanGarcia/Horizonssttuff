@@ -52,7 +52,20 @@ userSchema.methods.toggleGender = function ()
     this.gender = "male";
   }
   return gender;
-});*/
+});*///THIS IS ANOTHER WAY TO DO IT
+
+userSchema.statics.findByName = function(name, callback)
+{
+  this.find({"name.first": name}, callback);
+}
+
+//OR
+/*
+userSchema.static("findByName", function(name, callback)
+{
+
+}
+*/
 
 var User = mongoose.model('User', userSchema);
 
