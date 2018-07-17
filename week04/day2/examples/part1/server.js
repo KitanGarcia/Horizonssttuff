@@ -37,6 +37,7 @@ app.get('/', function(req, res) {
   });*/
   User.find()
     .skip(7)
+    .limit(7)
     .exec(function(err, users)
     {
       res.render('index',
