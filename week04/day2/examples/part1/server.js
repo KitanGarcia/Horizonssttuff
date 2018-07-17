@@ -12,6 +12,8 @@ app.engine('.hbs', exphbs(hbs));
 app.set('view engine', '.hbs');
 
 // mongoose setup
+var mongoose = require("mongoose");
+mongoose.connect(process.env.MONGODB_URI);
 var User = require('./user');
 
 // routes
@@ -23,6 +25,7 @@ app.get('/', function(req, res) {
 
   //-------------------EDIT ONLY BELOW THIS LINE!----------------------//
 
+/*
   User.find(function(err,users){
     res.render('index', {
       listItems: users,
@@ -31,7 +34,19 @@ app.get('/', function(req, res) {
       next: next,
       limit: limit
     });
-  });
+  });*/
+  User.find()
+    .exec(function(err, users)
+    {
+      res.render('index',
+      {
+        listItems: users,
+        prev: prev,
+        current: pageNumber,
+        next: next,
+        limit: limit
+      });
+    });
 
   //-------------------EDIT ONLY ABOVE THIS LINE!----------------------//
 
