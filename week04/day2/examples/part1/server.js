@@ -36,8 +36,9 @@ app.get('/', function(req, res) {
     });
   });*/
   User.find()
-    .skip(7)
+   // .skip(7)
     .limit(7)
+    .sort({"birthday": 1})
     .exec(function(err, users)
     {
       res.render('index',
