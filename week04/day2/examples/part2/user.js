@@ -19,8 +19,6 @@ var userSchema = new Schema({
 var ageVirtual = userSchema.virtual("age");
 ageVirtual.get(function()
 {
-
-  console.log(new Date);
   var age = new Date() - this.birthday;
   var seconds = (age/1000);
   var minutes = (seconds/60);
@@ -29,6 +27,32 @@ ageVirtual.get(function()
   var years = days/365;
   return (Math.floor(years));
 })
+
+userSchema.methods.toggleGender = function ()
+{
+  if (this.gender == "male")
+  {
+    this.gender = "female";
+  }
+  else
+  {
+    this.gender = "male";
+  }
+//  return this.gender;
+}
+
+/*userSchema.method("toggleGender", function()
+{
+  if (this.gender == "male")
+  {
+    this.gender = "female";
+  }
+  else
+  {
+    this.gender = "male";
+  }
+  return gender;
+});*/
 
 var User = mongoose.model('User', userSchema);
 
