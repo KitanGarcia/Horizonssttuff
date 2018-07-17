@@ -36,9 +36,9 @@ app.get('/', function(req, res) {
     });
   });*/
   User.find()
-   // .skip(7)
-    .limit(7)
-    .sort({"birthday": 1})
+    .skip((limit) * (pageNumber - 1))
+    .limit(limit)
+    .sort({"name.first": 1})
     .exec(function(err, users)
     {
       res.render('index',
