@@ -9,6 +9,12 @@ var models = require('./models');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
+var cookieSession = require("cookie-session");
+app.use(cookieSession(
+{
+  name: "session",
+  keys: ["This is a SECRET!!!"]
+}))
 
 // Secrets default to their name, unless there are process.ENV overrides
 function getSecret(key) {
@@ -33,12 +39,23 @@ app.get('/', function(req, res) {
 });
 
 /* ---------- Add your new POST '/' endpoint here ---------- */
+app.post('/', function(req, res)
+{
+  if (req.body.password === "gingerbread")
+  {
+    res.redirect("/stage2");
+  }
+  else
+  {
+    res.redirect("/");
+  }
+});
 
 
 /*================== STAGE 2: Insecure cookies ==================*/
 app.get('/' + getSecret('stage2'), function(req, res) {
   /* ---------- cookie value gets pulled here ---------- */
-  var userCookieValue = req.cookies.user;
+  var userCookieValue = req.session.cookieName;
   res.render('stage2', {
     user: userCookieValue,
     admin: userCookieValue === 'admin',
@@ -50,7 +67,8 @@ app.post('/' + getSecret('stage2'), function(req, res) {
   console.log(req.body);
   if (req.body.username === 'bob' && req.body.password === 'baseball') {
     /* ---------- Bob's cookie gets set here ---------- */
-    res.cookie('user', 'bob');
+    console.log("bob set");
+    req.session.cookieName = "bob";
     res.redirect('/' + getSecret('stage2'));
   } else {
     res.sendStatus(401);
@@ -67,27 +85,36 @@ app.get('/' + getSecret('stage3'), function(req, res) {
 
 app.post('/' + getSecret('stage3'), function(req, res) {
   var secret = req.body.secret;
-  /* ---------- check secret here ---------- */
-  models.Secret.findOne({
-    secret: secret
-  }, function(error, secret) {
-    if (error) {
-      res.status(400).json({
-        error: error
-      });
-    } else if (!secret) {
-      res.status(401).json({
-        error: "Incorrect key"
-      });
-    } else {
-      secret.stage4url = "/" + getSecret('stage4');
-      res.json({
-        secret: secret
-      });
-    }
-  });
+  if (typeof secret === "string" || secret instanceof String)
+  {
+  // ---------- check secret here ----------
+    models.Secret.findOne({
+      secret: secret
+    }, function(error, secret) {
+      if (error) {
+        res.status(400).json({
+          error: error
+        });
+      } else if (!secret) {
+        res.status(401).json({
+          error: "Incorrect key"
+        });
+      } else {
+        secret.stage4url = "/" + getSecret('stage4');
+        res.json({
+          secret: secret
+        });
+      }
+    });
+  }
+  else
+  {
+    res.status(400).json(
+    {
+      error: "yo its not a string doe"
+    });
+  }
 });
-
 /*================== EXERCISE 2 ROUTES ==================*/
 app.use('/exercise2', require('./exercise2'));
 
