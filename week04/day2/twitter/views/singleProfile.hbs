@@ -21,6 +21,12 @@
   <p>{{this.following.displayName}}</p>
 {{/each}}
 
+<div class = "profilepic">
+  <img src = {{user.imgUrl}}  
+</div>
+
+
 <form action="/users/{{user._id}}/follow" method="post">
   <button type="submit">Follow</button>
 </form>
+

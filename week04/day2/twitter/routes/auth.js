@@ -5,6 +5,16 @@ var router = express.Router();
 var models = require('../models/models');
 
 
+
+//Hashing password
+var crypto = require("crypto");
+function hashPassword(password)//MAY NEED TO INCLUDE THIS IN AUTH
+{
+  var hash = crypto.createHash("sha256");
+  hash.update(password);
+  return hash.digest("hex");
+}
+
 module.exports = function(passport) {
 
   // GET registration page
@@ -28,7 +38,10 @@ module.exports = function(passport) {
       //    passport is expecting a form field specifically named 'username'.
       //    There is a way to change the name it expects, but this is fine.
       email: req.body.username,
-      password: req.body.password
+      hashedPassword: hashPassword(req.body.password),
+      displayName: req.body.displayName,
+      bio: req.body.bio,
+      imgUrl: req.body.imgUrl
     });
 
     u.save(function(err, user) {
