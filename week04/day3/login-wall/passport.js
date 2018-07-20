@@ -15,7 +15,6 @@ passport.deserializeUser(function(user, done) {
 var express = require('express');
 var router = express.Router();
 
-
 router.use(passport.initialize());
 router.use(passport.session());
 
@@ -32,7 +31,5 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
 }));
-
-
 
 module.exports = router;

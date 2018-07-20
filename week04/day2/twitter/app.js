@@ -9,15 +9,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var models = require('./models/models');
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
-
 var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
-mongoose.connection.on("connected", function()
-{
-  console.log("Connected to MongoDB!");
-});
-mongoose.connect(process.env.MONGODB_URI);
-
 var _ = require('underscore');
 
 var app = express();
@@ -33,71 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Passport stuff here
-app.use(session(
-{
-  secret: process.env.SECRET,
-  name: "Catscookie",
-  store: new MongoStore({mongooseConnection: mongoose.connection}),
-  proxy: true,
-  resave: true,
-  saveUninitialized: true
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.serializeUser(function(user, done)
-{
-  done(null, user._id);
-})
-
-passport.deserializeUser(function(id, done)
-{
-  models.User.findById(id, function(err, user)
-  {
-    done(err, user);
-  });
-});
-
-
-
-//Hashing password
-var crypto = require("crypto");
-function hashPassword(password)//MAY NEED TO INCLUDE THIS IN AUTH
-{
-  var hash = crypto.createHash("sha256");
-  hash.update(password);
-  return hash.digest("hex");
-}
-
-passport.use(new LocalStrategy(
-  function(email, password, done) {
-    models.User.findOne({email: email}, function(error, user)
-    {
-      if (error)
-      {
-        console.log(error);
-        return done(error);
-      }
-
-      if (!user)
-      {
-        console.log(user);
-        return done(null, user);
-      }
-
-      if (user.hashedPassword !== hashPassword(password))
-      {
-        return done(null, false, {message: "Incorrect password"});
-      }
-
-      else
-      {
-        return done(null, user)//authentication successful
-      }
-    });
-  }
-));
 
 // Session info here
 

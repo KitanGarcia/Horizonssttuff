@@ -27,41 +27,17 @@ router.get('/users/', function(req, res, next) {
 
 
 router.get('/users/:userId', function(req, res, next) {
+
   // Gets all information about a single user
-  User.findById(req.params.userId, function(error, user)
-  {
-    if (error)
-    {
-      console.log(error);
-    }
-    else
-    {
-      res.render("singleProfile",
-      {
-        user: user
-      });
-    }
-  });
+
 });
 
 
   // Creates a follower
 
 router.post('/users/:userId/follow', function(req, res) {
+
   // Create a new follower
-//FINISH THISSSS!  req.user.follow
- req.user.follow(req.params.userId, function(err)
- {
-   if (err)
-   {
-     console.log(err);
-     res.send(err.message);
-   }
-   else
-   {
-     res.redirect("/users/" + req.params.userId);
-   }
- });
 });
 
 
