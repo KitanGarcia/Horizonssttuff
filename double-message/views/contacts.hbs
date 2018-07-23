@@ -1,0 +1,11 @@
+<h1>Contacts:</h1>
+{{#each contact}}
+  <p>{{this.name}}</p>
+  <p>{{this.phone}}</p>
+  <a href = "/messages/send/{{this._id}}"> Send Text</a>
+  <a href = "/messages/{{this._id}}"> View Message</a>
+  <a href = "/contacts/{{this._id}}"> Edit Contact</a>
+{{/each}}
+  <a href = "/contacts/new"> Add Contact</a>
+  <a href = "/messages"> View All Messages</a>
+  <a href = "/logout"> Logout</a>
