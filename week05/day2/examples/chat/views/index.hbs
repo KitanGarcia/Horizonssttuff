@@ -14,7 +14,11 @@
     </div>
     <div class="col-md-6 box">
       <div class="textbox">
+        <ul id = "msgList"></ul>
       </div>
+        <input id = "username" type = "text" placeholder = "Username...">
+        <button class="inline usernamebtn">Send</button>
+
       <div class="inputbox block">
         <input class="inline typebox" type="text" placeholder="Say Something...">
         <button class="inline submitbutton">Send</button>
@@ -22,3 +26,50 @@
     </div>
   </div>
 </section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js">
+</script>
+
+<script>
+  var socket = io();
+  socket.on('connect', function() {
+    console.log('Connected!');
+  });
+
+  $(".usernamebtn").click(function()
+  {
+    var username = $("#username").val();
+    console.log("got username");
+    $("#username").val("");
+    socket.emit("username", username);
+  });
+
+  $(".submitbutton").click(function()
+  {
+    var message = $(".typebox").val();
+    console.log("got message");
+    $(".typebox").val("");
+    console.log("Cleared message box");
+    socket.emit("message", message)
+  });
+
+  socket.on("serverMessage", function(message)
+  {
+    $("#msgList").append(`<li>` + message + `</li>`);
+    console.log("Should have added message to page");
+  });
+
+
+  socket.on("welcome", function(newUsername)
+  {
+    $("#msgList").append(`<li style="color: red"> Welcome to the chatroom, ` + newUsername + `!</li>`);
+    console.log("Should have added message to page");
+  });
+
+  socket.on("joinedRoom", function(newUsername)
+  {
+    $("#msgList").append(`<li style="color: red">` + newUsername + ` has joined the room.</li>`);
+    console.log("Should have added message to page");
+  });
+</script>
