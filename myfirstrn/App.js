@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableOpacity,  StyleSheet, Text, View } from 'react-native';
-//var _ = require("underscore");
+import {AppRegistry, ListView, TouchableOpacity,  StyleSheet, Text, View } from 'react-native';
+var _ = require("underscore");
 
 /*
 //RED BOX THAT DISAPPEARS
@@ -61,39 +61,55 @@ export default class App extends React.Component {
   }
 }*/
 
-
-
-
-
 /*
-INCREMENT/DECREMENT COUNT
+SCROLLABLE LIST OF 100 NUMBERS
 export default class App extends React.Component {
   constructor()
   {
     super();
-    this.state = {count: 0};
-  }
-
-  inc()
-  {
-    this.setState({count: this.state.count + 1});
-  }
-
-  dec()
-  {
-    this.setState({count: this.state.count - 1});
+    var dataSource = new ListView.DataSource(
+    {
+      rowHasChanged: (r1, r2) => (r1 !== r2)
+    });
+    this.state = {dataSource: dataSource.cloneWithRows(_.range(100))};
   }
 
   render() {
     return (
-     <View style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "green"}}>
-        <Text>Count: {this.state.count}</Text>
-        <TouchableOpacity onPress={this.inc.bind(this)}>
-          <Text>+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this.dec.bind(this)}>
-          <Text>-</Text>
-        </TouchableOpacity>
+     <View style={{marginTop: 20, flex: 1}}>
+       <ListView
+         renderRow={(item) => (
+           <View style={{alignItems: "center"}}><Text>{item}</Text></View>
+         )}
+         dataSource={this.state.dataSource}
+       />
+     </View>
+    );
+  }
+}*/
+
+
+/*
+export default class App extends React.Component {
+  constructor()
+  {
+    super();
+    var dataSource = new ListView.DataSource(
+    {
+      rowHasChanged: (r1, r2) => (r1 !== r2)
+    });
+    this.state = {dataSource: dataSource.cloneWithRows(_.range(100))};
+  }
+
+  render() {
+    return (
+     <View style={{marginTop: 20, flex: 1}}>
+       <ListView
+         renderRow={(item) => (
+           <View style={{alignItems: "center"}}><Text>{item}</Text></View>
+         )}
+         dataSource={this.state.dataSource}
+       />
      </View>
     );
   }
