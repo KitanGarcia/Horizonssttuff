@@ -89,32 +89,75 @@ export default class App extends React.Component {
 }*/
 
 
+//NUMBER 1-100, CLICK TO REMOVE
+export default class App extends React.Component {
+  constructor()
+  {
+    super();
+    this.state = {numbers: _.range(100)};
+  }
+
+  remove(item)
+  {
+    this.setState({numbers: this.state.numbers.filter((curItem) => (item !== curItem))});
+  }
+
+  render() {
+    var dataSource = new ListView.DataSource(
+    {
+      rowHasChanged: (r1, r2) => (r1 !== r2)
+    });
+    return (
+     <View style={{marginTop: 20, flex: 1}}>
+       <ListView
+         renderRow={(item) => (
+           <View style={{alignItems: "center"}}>
+             <TouchableOpacity onPress={this.remove.bind(this, item)}>
+               <Text>{item}</Text>
+             </TouchableOpacity>
+           </View>
+         )}
+         dataSource={dataSource.cloneWithRows(this.state.numbers)}//creates dataSource object from an array
+       />
+     </View>
+    );
+  }
+}
+
+
+
 /*
 export default class App extends React.Component {
   constructor()
   {
     super();
+    this.state = {numbers: _.range(10)};
+  }
+
+  remove(item)
+  {
+    this.setState({numbers: this.state.numbers.filter((curItem) => (item !== curItem))});
+  }
+
+  render() {
     var dataSource = new ListView.DataSource(
     {
       rowHasChanged: (r1, r2) => (r1 !== r2)
     });
-    this.state = {dataSource: dataSource.cloneWithRows(_.range(100))};
-  }
-
-  render() {
     return (
      <View style={{marginTop: 20, flex: 1}}>
        <ListView
          renderRow={(item) => (
-           <View style={{alignItems: "center"}}><Text>{item}</Text></View>
+           <View style={{alignItems: "center"}}>//touchableopac...
+               <Text>{item}</Text>
+           </View>
          )}
-         dataSource={this.state.dataSource}
+         dataSource={dataSource.cloneWithRows(this.state.numbers)}//creates dataSource object from an array
        />
      </View>
     );
   }
 }*/
-
 
 const styles = StyleSheet.create({
   container: {
