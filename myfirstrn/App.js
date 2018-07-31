@@ -1,6 +1,7 @@
 import React from 'react';
 import {AppRegistry, ListView, TouchableOpacity,  StyleSheet, Text, View } from 'react-native';
 var _ = require("underscore");
+import {createStackNavigator} from 'react-navigation';
 
 /*
 //RED BOX THAT DISAPPEARS
@@ -88,7 +89,7 @@ export default class App extends React.Component {
   }
 }*/
 
-
+/*
 //NUMBER 1-100, CLICK TO REMOVE
 export default class App extends React.Component {
   constructor()
@@ -123,7 +124,7 @@ export default class App extends React.Component {
     );
   }
 }
-
+*/
 
 
 /*
@@ -159,11 +160,50 @@ export default class App extends React.Component {
   }
 }*/
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
+class App extends React.Component {
+  static navigationOptions = (props) => (
+  {
+    title: "Home Page",
+    headerRight: <TouchableOpacity onPress = {() => (props.navigation.navigate("Page2"))}><Text>Second Page</Text></TouchableOpacity>
+  });
+  render() {
+    return (
+     <View style={{flex: 1, backgroundColor: "red", alignItems: "center", justifyContent: "center"}}>
+           <Text>This is Page One</Text>
+           <TouchableOpacity onPress = {() => this.props.navigation.navigate("Page2")}>
+               <Text>Click here to go to Page Two!</Text>
+           </TouchableOpacity>
+     </View>
+    );
+  }
+}
+
+class Second extends React.Component
+{
+  static navigationOptions = (props_ => (
+  {
+    title: "Second Page"
+  }));
+  render()
+  {
+    return(
+    <View style={{
+        backgroundColor: "blue",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    }}>
+      <Text>Welcome to Page Two!</Text>
+    </View>);
+
+  }
+}
+
+const Navigator = createStackNavigator(
+		{
+Home: {screen: App},
+  Page2: {screen: Second}
 });
+
+export default Navigator;
