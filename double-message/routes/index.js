@@ -4,7 +4,7 @@ var router = express.Router();
 var models = require("../models/models.js");
 var User = models.User;
 var Contact = models.Contact;
-var Message = models.Contact;
+var Message = models.Message;
 
 var accountSid = process.env.TWILIO_SID; // Your Account SID from www.twilio.com/console
 var authToken = process.env.TWILIO_AUTH_TOKEN; // Your Auth Token from www.twilio.com/console
