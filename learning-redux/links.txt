@@ -4,4 +4,6 @@ Simple Count: https://vimeo.com/282272060, https://codepen.io/rick-shar/pen/qrBw
 
 Canvas from Scratch: https://vimeo.com/282272156, https://codepen.io/smitgw11/pen/oGqEEr?editors=1010
 
+Connecting Components: https://vimeo.com/282278132, https://codepen.io/rick-shar/pen/mmYxGP?editors=0011
 
+Getting Started with Redux (Dan Abramov): https://egghead.io/courses/getting-started-with-redux

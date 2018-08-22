@@ -1,0 +1,11 @@
+div {
+  outline: #000000 solid thick;
+  height: 50px;
+  width: 50px;
+}
+.blue {
+  background-color: blue;
+}
+.red {
+  background-color: red;
+}
