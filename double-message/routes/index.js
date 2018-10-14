@@ -88,24 +88,35 @@ router.post("/contacts/:id", function(req, res)
 //TWILIO STARTS HERE
 router.get("/messages", function(req, res)
 {
+  console.log("inside messages get");
   Message.find({user: req.user._id})///DOUBLE CHECK
     .populate("contact")
     .exec(function(error, results)
     {
-      res.render("messages",
+      if (error)
       {
-        message: results
-      });
+        console.log("error");
+      }
+      else
+      {
+        console.log("OH MY LORD, it should have been MESSAGES!");
+        res.render("messages",
+        {
+          messages: results
+        });
+      }
     })
 });
 
 
 router.get("/messages/:contactId", function(req, res)
 {
+  console.log("inside messages get");
   Message.find({user: req.user._id, contact: req.params.contactId})
     .populate("contact")
     .exec(function(error, results)
     {
+      console.log("inside function");
       if (error)
       {
         res.status(500);
